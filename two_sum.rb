@@ -19,5 +19,11 @@ def okay_two_sum?(arr, num)
   false
 end
 
-def pair_sum?(arr, num)
-  
+def pair_sum?(arr, target)
+  addends = {}
+  arr.each do |el|
+    return true if addends.key?(target - el)
+    addends[el] = target - el;
+  end
+  false
+end
