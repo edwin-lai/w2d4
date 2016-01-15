@@ -6,24 +6,17 @@ class StackQueue
     @stack2 = MyStack.new
   end
   
-  def enqueue(item)
-    until @stack2.empty?
-      @stack1.push(@stack2.pop)
-    end
-    
+  def enqueue(item)    
     @stack1.push(item)
-    
-    until @stack1.empty?
-      @stack2.push(@stack1.pop)
-    end
   end
   
   def dequeue
+    move_items_to_stack_2
     @stack2.pop
   end
   
   def size
-    @stack2.size
+    @stack1.size + @stack2.size
   end
   
   def empty?
@@ -31,6 +24,17 @@ class StackQueue
   end
   
   def peek
+    move_items_to_stack_2
     @stack2.peek
+  end
+  
+  private
+  
+  def move_items_to_stack_2
+    if @stack2.empty?
+      until @stack1.empty?
+        @stack2.push(@stack1.pop)
+      end
+    end
   end
 end
